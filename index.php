@@ -3,6 +3,145 @@ session_start();
 
 $cardsFile = __DIR__ . '/data/cards.json';
 $cards = json_decode(file_get_contents($cardsFile), true) ?? [];
+$collectionFile = __DIR__ . '/data/.arcana/collections.json';
+
+function collectionSaveId(): string {
+    $cookieName = 'arcana_save_id';
+    $saveId = $_COOKIE[$cookieName] ?? '';
+
+    if (!preg_match('/\A[a-f0-9]{64}\z/', $saveId)) {
+        $saveId = bin2hex(random_bytes(32));
+        $forwardedHttps = ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
+        $directHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+
+        setcookie($cookieName, $saveId, [
+            'expires' => time() + (5 * 365 * 24 * 60 * 60),
+            'path' => '/',
+            'secure' => $directHttps || $forwardedHttps,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+        $_COOKIE[$cookieName] = $saveId;
+    }
+
+    return hash('sha256', $saveId);
+}
+
+function readCollectionStore($handle): array {
+    if (!rewind($handle)) {
+        throw new RuntimeException('Could not read the Arcana collection.');
+    }
+
+    $contents = stream_get_contents($handle);
+    if ($contents === false) {
+        throw new RuntimeException('Could not read the Arcana collection.');
+    }
+    if (trim($contents) === '') {
+        return [];
+    }
+
+    try {
+        $store = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
+    } catch (JsonException $exception) {
+        throw new RuntimeException('The Arcana collection file contains invalid JSON.', 0, $exception);
+    }
+
+    if (!is_array($store)) {
+        throw new RuntimeException('The Arcana collection file has an invalid format.');
+    }
+
+    return $store;
+}
+
+function writeCollectionStore($handle, array $store): void {
+    $json = json_encode($store, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR) . PHP_EOL;
+    if (!rewind($handle) || !ftruncate($handle, 0)) {
+        throw new RuntimeException('Could not save the Arcana collection.');
+    }
+
+    $offset = 0;
+    $length = strlen($json);
+    while ($offset < $length) {
+        $written = fwrite($handle, substr($json, $offset));
+        if ($written === false || $written === 0) {
+            throw new RuntimeException('Could not save the Arcana collection.');
+        }
+        $offset += $written;
+    }
+
+    if (!fflush($handle)) {
+        throw new RuntimeException('Could not save the Arcana collection.');
+    }
+}
+
+function loadCollectionCounts(string $file, string $owner): array {
+    $handle = fopen($file, 'c+');
+    if ($handle === false) {
+        throw new RuntimeException('Could not open the Arcana collection file.');
+    }
+
+    try {
+        if (!flock($handle, LOCK_EX)) {
+            throw new RuntimeException('Could not lock the Arcana collection file.');
+        }
+        $store = readCollectionStore($handle);
+        if (fstat($handle)['size'] === 0) {
+            writeCollectionStore($handle, $store);
+        }
+        $counts = $store[$owner] ?? [];
+
+        if (!is_array($counts)) {
+            throw new RuntimeException('The saved Arcana collection has an invalid format.');
+        }
+
+        foreach ($counts as $cardId => $count) {
+            if (!is_string($cardId) || !is_int($count) || $count < 1) {
+                throw new RuntimeException('The saved Arcana collection has an invalid card count.');
+            }
+        }
+
+        return $counts;
+    } finally {
+        flock($handle, LOCK_UN);
+        fclose($handle);
+    }
+}
+
+function addCardToCollection(string $file, string $owner, string $cardId): int {
+    $handle = fopen($file, 'c+');
+    if ($handle === false) {
+        throw new RuntimeException('Could not open the Arcana collection file.');
+    }
+
+    try {
+        if (!flock($handle, LOCK_EX)) {
+            throw new RuntimeException('Could not lock the Arcana collection file.');
+        }
+
+        $store = readCollectionStore($handle);
+        $counts = $store[$owner] ?? [];
+        if (!is_array($counts)) {
+            throw new RuntimeException('The saved Arcana collection has an invalid format.');
+        }
+
+        $currentCount = $counts[$cardId] ?? 0;
+        if (!is_int($currentCount) || $currentCount < 0) {
+            throw new RuntimeException('The saved Arcana collection has an invalid card count.');
+        }
+
+        $counts[$cardId] = $currentCount + 1;
+        $store[$owner] = $counts;
+        writeCollectionStore($handle, $store);
+
+        return $counts[$cardId];
+    } finally {
+        flock($handle, LOCK_UN);
+        fclose($handle);
+    }
+}
+
+$collectionOwner = collectionSaveId();
+$collectionCounts = loadCollectionCounts($collectionFile, $collectionOwner);
 
 if (!isset($_SESSION['player'])) {
     $_SESSION['player'] = [
@@ -35,8 +174,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'draw' && count($cards) > 0) {
         $card = $cards[array_rand($cards)];
-        $player['cards'][] = $card['id'];
-        $player['message'] = 'A card has answered your call: ' . $card['name'] . '.';
+        $collectionCounts[$card['id']] = addCardToCollection($collectionFile, $collectionOwner, $card['id']);
+        $player['message'] = 'A card has answered your call: ' . $card['name']
+            . ($collectionCounts[$card['id']] > 1
+                ? '. You now have ' . $collectionCounts[$card['id']] . ' copies.'
+                : '. It has been added to your collection.');
     } elseif ($action === 'explore') {
         $expGain = random_int(15, 35);
         addExp($player, $expGain);
@@ -73,14 +215,15 @@ $expNeeded = $player['level'] * 100;
 $expPercent = min(100, (int) (($player['exp'] / $expNeeded) * 100));
 $hpPercent = (int) (($player['hp'] / $player['max_hp']) * 100);
 $ownedCards = [];
-foreach ($player['cards'] as $cardId) {
-    foreach ($cards as $card) {
-        if ($card['id'] === $cardId) {
-            $ownedCards[] = $card;
-            break;
-        }
+foreach ($cards as $card) {
+    $cardId = $card['id'];
+    if (!isset($collectionCounts[$cardId])) {
+        continue;
     }
+
+    $ownedCards[] = $card;
 }
+$collectionTotal = array_sum($collectionCounts);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -139,9 +282,9 @@ foreach ($player['cards'] as $cardId) {
         </section>
 
         <section class="panel">
-            <div class="section-heading"><div><p class="eyebrow">RECOVERED OBJECTS</p><h2>Your Arcana</h2></div><span class="count"><?= count($ownedCards) ?> found</span></div>
+            <div class="section-heading"><div><p class="eyebrow">RECOVERED OBJECTS</p><h2>Arcana Collection</h2></div><span class="count"><?= $collectionTotal ?> <?= $collectionTotal === 1 ? 'copy' : 'copies' ?> · <?= count($ownedCards) ?> unique</span></div>
             <?php if (count($ownedCards) === 0): ?>
-                <div class="empty-state"><span>☽</span><p>No cards recovered yet.</p><small>Draw an Arcana card to begin your collection.</small></div>
+                <div class="empty-state"><span>☽</span><p>No cards recovered yet.</p><small>Draw an Arcana card to begin your collection. Your discoveries are saved between visits.</small></div>
             <?php else: ?>
                 <div class="card-grid">
                     <?php foreach ($ownedCards as $card): ?>
@@ -151,6 +294,7 @@ foreach ($player['cards'] as $cardId) {
                             <h3><?= htmlspecialchars($card['name']) ?></h3>
                             <p class="rarity"><?= htmlspecialchars($card['rarity']) ?></p>
                             <p class="card-description"><?= htmlspecialchars($card['description']) ?></p>
+                            <p class="copy-count"><?= $collectionCounts[$card['id']] ?> <?= $collectionCounts[$card['id']] === 1 ? 'copy' : 'copies' ?></p>
                         </article>
                     <?php endforeach; ?>
                 </div>
@@ -166,7 +310,7 @@ foreach ($player['cards'] as $cardId) {
 
         <footer>
             <p>THE LAST ARCANA <span>•</span> ARCHIVE VERSION 0.1</p>
-            <form method="post" onsubmit="return confirm('Reset all current progress?');"><input type="hidden" name="action" value="reset"><button class="reset-button" type="submit">Reset progress</button></form>
+            <form method="post" onsubmit="return confirm('Reset player status? Your Arcana Collection will be kept.');"><input type="hidden" name="action" value="reset"><button class="reset-button" type="submit">Reset player status</button></form>
         </footer>
     </main>
 </body>

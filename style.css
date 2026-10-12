@@ -58,6 +58,7 @@ h2 { font-size: 21px; margin: 0 0 8px; }
 .tarot-card h3 { font-size: 16px; margin: 5px 0; }
 .rarity { font-size: 9px; letter-spacing: 1px; color: #d1a6a7; }
 .card-description { color: var(--muted); font-size: 11px; }
+.copy-count { display: inline-block; margin: 4px 0 0; padding: 3px 8px; border: 1px solid #73534d; color: var(--gold); font-size: 10px; letter-spacing: .5px; }
 .archive-panel { background: linear-gradient(130deg, #21191e, #151114); }
 .redacted { margin-top: 16px; padding: 10px; border: 1px solid var(--line); color: #d6bfc0; font-size: 10px; letter-spacing: 1px; overflow-wrap: anywhere; }
 footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: 9px; letter-spacing: 1px; padding: 10px 2px; }

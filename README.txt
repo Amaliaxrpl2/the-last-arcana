@@ -7,7 +7,7 @@ Isi folder:
 
 PENTING:
 1. GitHub Pages tidak menjalankan PHP. Upload kode ke GitHub untuk menyimpannya, tetapi untuk menjalankan index.php kamu membutuhkan server/hosting yang mendukung PHP.
-2. Proyek ini tidak memakai MySQL. Data kartu ada di file JSON. Progres pemain sementara disimpan menggunakan PHP session, sehingga progres dapat hilang saat session berakhir.
+2. Proyek ini tidak memakai MySQL. Data kartu ada di file JSON. Status pemain (level, EXP, HP, dan stage) sementara disimpan menggunakan PHP session. Koleksi Arcana dan jumlah kartu duplikat disimpan terpisah dalam JSON di `data/.arcana/`, lalu dikaitkan dengan cookie browser agar tetap ada setelah halaman dimuat ulang.
 3. Jangan gunakan tombol Stage sebagai sistem pertarungan final; ini masih prototipe awal untuk menguji level, EXP, HP, dan navigasi.
 
 CARA MENAMBAH KARTU:
