@@ -1,0 +1,50 @@
+[
+  {
+    "id": "fool",
+    "number": "0",
+    "name": "The Fool",
+    "rarity": "LEGENDARY ARCANA",
+    "symbol": "☽",
+    "description": "A beginning with no promise of a safe ending. Its true ability remains unknown."
+  },
+  {
+    "id": "magician",
+    "number": "I",
+    "name": "The Magician",
+    "rarity": "EPIC ARCANA",
+    "symbol": "✧",
+    "description": "A hand reaches toward the impossible. One small rule may bend, but never without a price."
+  },
+  {
+    "id": "moon",
+    "number": "XVIII",
+    "name": "The Moon",
+    "rarity": "MYTHIC ARCANA",
+    "symbol": "☾",
+    "description": "It reveals what hides in the dark. Not every revelation is the truth."
+  },
+  {
+    "id": "tower",
+    "number": "XVI",
+    "name": "The Tower",
+    "rarity": "LEGENDARY ARCANA",
+    "symbol": "♜",
+    "description": "When the old order falls, something buried beneath it begins to wake."
+  },
+  {
+    "id": "hermit",
+    "number": "IX",
+    "name": "The Hermit",
+    "rarity": "RARE ARCANA",
+    "symbol": "♧",
+    "description": "A solitary light guides the seeker, though the path remains their own."
+  },
+  {
+    "id": "high-priestess",
+    "number": "II",
+    "name": "The High Priestess",
+    "rarity": "EPIC ARCANA",
+    "symbol": "◈",
+    "description": "The archive keeps its secrets behind a silent veil. Ask the wrong question, and it may answer."
+  }
+]
