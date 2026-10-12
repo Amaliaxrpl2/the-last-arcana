@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 520" role="img" aria-labelledby="title desc">
+  <title id="title">The Fool</title>
+  <desc id="desc">A young wanderer and a small white dog approach a moonlit cliff at the edge of a new journey.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#10111a"/><stop offset=".52" stop-color="#432234"/><stop offset="1" stop-color="#c07860"/></linearGradient>
+    <linearGradient id="cloak" x2="1" y2="1"><stop stop-color="#c85055"/><stop offset="1" stop-color="#501c36"/></linearGradient>
+    <radialGradient id="sun"><stop stop-color="#fff1c3"/><stop offset=".55" stop-color="#e5b773"/><stop offset="1" stop-color="#e5b773" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="360" height="520" fill="url(#sky)"/>
+  <circle cx="269" cy="174" r="92" fill="#efca91" opacity=".11"/>
+  <circle cx="269" cy="174" r="57" fill="url(#sun)"/>
+  <circle cx="269" cy="174" r="37" fill="#f3d49b"/>
+  <path d="M0 262 70 197l48 42 56-75 56 66 46-47 84 71v120H0z" fill="#261c2a"/>
+  <path d="m0 323 92-62 72 51 83-61 113 73v118H0z" fill="#17141c"/>
+  <g fill="#e5c890" opacity=".8"><circle cx="57" cy="94" r="2"/><circle cx="105" cy="139" r="1.5"/><circle cx="203" cy="72" r="2"/><path d="m126 74 4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/></g>
+  <path d="M0 397c82-15 123-4 178 20 61 26 104 14 182-17v120H0z" fill="#111015"/>
+  <path d="M0 430c65-18 108-21 157-5 30 10 53 12 86 6l-27 89H0z" fill="#28202a"/>
+  <path d="M199 432c34-10 70-34 102-80l59-25v193H222z" fill="#0c0b10"/>
+  <path d="M55 467c63-24 112-47 154-80 32-25 56-55 71-91" fill="none" stroke="#ae7959" stroke-width="11" opacity=".65"/>
+  <path d="M55 467c63-24 112-47 154-80 32-25 56-55 71-91" fill="none" stroke="#ebc58d" stroke-width="1.5" stroke-dasharray="3 9"/>
+  <path d="M131 384c-8-44 2-76 25-95l26-8 18 22-2 43-17 53 35 35-64 8-51-23z" fill="url(#cloak)" stroke="#d8ad78" stroke-width="2"/>
+  <circle cx="171" cy="265" r="19" fill="#bd9678" stroke="#e5c99e" stroke-width="2"/>
+  <path d="M153 263c2-28 29-36 46-18l9 14-30-7-23 14z" fill="#27202a" stroke="#dfbc83" stroke-width="2"/>
+  <path d="m160 245-17-14 37-5 28 13-9 13z" fill="#ad8454" stroke="#e0bd81" stroke-width="2"/>
+  <path d="m144 294-20 30 25 15m47-48 22 25-22 17" fill="none" stroke="#cba47a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M218 301 248 241" stroke="#a17d51" stroke-width="4"/>
+  <path d="m232 238 16-20 11 24z" fill="#b23f4e" stroke="#dfbc83" stroke-width="2"/>
+  <path d="M114 377c20-3 28 4 33 15l-13 22-30-5 3-22z" fill="#eee0c3" stroke="#d3b67f" stroke-width="2"/>
+  <circle cx="107" cy="379" r="10" fill="#eee0c3"/>
+  <path d="m98 373-8-9 13 4m8-3 8-9-2 15" fill="#eee0c3" stroke="#d3b67f"/>
+  <circle cx="103" cy="378" r="2" fill="#342331"/>
+  <path d="M107 389v12m20-10 13 8" stroke="#9e7652" stroke-width="2"/>
+  <path d="m92 467 11-3m19-6 12-5m57-44 12-10" stroke="#dfc28c" stroke-width="2" opacity=".7"/>
+  <rect x="13" y="13" width="334" height="494" rx="4" fill="none" stroke="#b79a68" stroke-width="2"/>
+  <rect x="20" y="20" width="320" height="480" rx="2" fill="none" stroke="#b79a68" stroke-opacity=".45"/>
+  <path d="M13 57h25M13 57v25m309-25h25m0 0v25M13 463h25m-25 0v-25m309 25h25v-25" fill="none" stroke="#e1c78f" stroke-width="2"/>
+  <rect x="116" y="460" width="128" height="28" rx="2" fill="#100e13" stroke="#b79a68"/>
+  <text x="180" y="479" text-anchor="middle" fill="#dec78e" font-family="Georgia,serif" font-size="13" letter-spacing="3">0 · THE FOOL</text>
+</svg>

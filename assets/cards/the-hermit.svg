@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 520" role="img" aria-labelledby="title desc">
+  <title id="title">The Hermit</title>
+  <desc id="desc">A solitary hooded wanderer raises a golden lantern beneath a cold moon.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#11131d"/><stop offset=".62" stop-color="#38212f"/><stop offset="1" stop-color="#100e13"/></linearGradient>
+    <linearGradient id="cloak" x2="1" y2="1"><stop stop-color="#836344"/><stop offset=".35" stop-color="#382333"/><stop offset="1" stop-color="#17131b"/></linearGradient>
+    <radialGradient id="lantern"><stop stop-color="#fff1b5" stop-opacity=".95"/><stop offset=".24" stop-color="#e3aa58" stop-opacity=".55"/><stop offset="1" stop-color="#e3aa58" stop-opacity="0"/></radialGradient>
+    <radialGradient id="moon"><stop stop-color="#fff8dd"/><stop offset=".72" stop-color="#c9b991"/><stop offset="1" stop-color="#958b81"/></radialGradient>
+  </defs>
+  <rect width="360" height="520" fill="url(#sky)"/>
+  <circle cx="265" cy="112" r="65" fill="#bca276" opacity=".09"/>
+  <circle cx="265" cy="112" r="42" fill="url(#moon)"/>
+  <path d="M254 77c-24 22-17 59 9 72-34 4-57-25-46-55 6-17 21-27 37-28z" fill="#27202a" opacity=".75"/>
+  <g fill="#d8c396" opacity=".72"><circle cx="75" cy="77" r="2"/><circle cx="159" cy="48" r="1.5"/><circle cx="318" cy="197" r="2"/><circle cx="70" cy="191" r="1.4"/><path d="m190 90 4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/></g>
+  <path d="M0 270 67 190l34 39 53-83 76 111 39-67 91 91v239H0z" fill="#201923"/>
+  <path d="m0 337 102-88 63 55 77-81 118 102v195H0z" fill="#111016"/>
+  <path d="M0 391c63-39 115-31 164-4 43 24 87 13 125-15l71-27v175H0z" fill="#0b0b10"/>
+  <path d="M39 435c57-38 89-54 123-71 28-14 45-47 61-91" fill="none" stroke="#65513f" stroke-width="17" opacity=".58"/>
+  <path d="M39 435c57-38 89-54 123-71 28-14 45-47 61-91" fill="none" stroke="#b08a55" stroke-width="1.5" stroke-dasharray="3 8" opacity=".7"/>
+  <circle cx="213" cy="269" r="74" fill="url(#lantern)" opacity=".8"/>
+  <path d="M184 394c-12-49-9-94 8-133l27-22 24 21c18 45 25 93 14 143l38 47H146z" fill="url(#cloak)" stroke="#9a7950" stroke-width="2"/>
+  <path d="m189 265 19-29 16-9 21 20-5 31c-12 15-38 13-51-13z" fill="#17131a" stroke="#c1a36d" stroke-width="2"/>
+  <path d="M194 263c8-24 32-26 46-8-9 17-35 22-46 8z" fill="#0d0d12"/>
+  <path d="m186 289-25 38 29 15 23-41m26-16 22 34-22 16-17-29" fill="none" stroke="#a7895d" stroke-width="10" stroke-linecap="round"/>
+  <path d="M157 329 143 232" stroke="#b69460" stroke-width="4" stroke-linecap="round"/>
+  <path d="m137 239 6-12 7 11" fill="none" stroke="#d9be86" stroke-width="3"/>
+  <path d="m220 320-10-19 5-18h18l6 18-9 19z" fill="#211722" stroke="#dfb969" stroke-width="3"/>
+  <path d="M215 301h18m-15-13h12" stroke="#f0d898" stroke-width="2"/>
+  <circle cx="219" cy="301" r="20" fill="url(#lantern)"/>
+  <path d="M146 439h160" stroke="#c9a96e" stroke-width="1" opacity=".55"/>
+  <rect x="13" y="13" width="334" height="494" rx="4" fill="none" stroke="#b79a68" stroke-width="2"/>
+  <rect x="20" y="20" width="320" height="480" rx="2" fill="none" stroke="#b79a68" stroke-opacity=".45"/>
+  <path d="M13 57h25M13 57v25m309-25h25m0 0v25M13 463h25m-25 0v-25m309 25h25v-25" fill="none" stroke="#e1c78f" stroke-width="2"/>
+  <rect x="106" y="460" width="148" height="28" rx="2" fill="#100e13" stroke="#b79a68"/>
+  <text x="180" y="479" text-anchor="middle" fill="#dec78e" font-family="Georgia,serif" font-size="13" letter-spacing="3">IX · THE HERMIT</text>
+</svg>

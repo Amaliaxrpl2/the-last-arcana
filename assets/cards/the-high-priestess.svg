@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 520" role="img" aria-labelledby="title desc">
+  <title id="title">The High Priestess</title>
+  <desc id="desc">A veiled oracle sits between dark pillars under a silver crescent moon.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#10121e"/><stop offset=".58" stop-color="#292034"/><stop offset="1" stop-color="#160f18"/></linearGradient>
+    <linearGradient id="veil" x2="1" y2="1"><stop stop-color="#d6c6a5"/><stop offset=".48" stop-color="#7a6c70"/><stop offset="1" stop-color="#33263a"/></linearGradient>
+    <linearGradient id="pillar" x2="0" y2="1"><stop stop-color="#6e4a4d"/><stop offset=".5" stop-color="#241b27"/><stop offset="1" stop-color="#100e14"/></linearGradient>
+    <radialGradient id="luna"><stop stop-color="#f3ead1"/><stop offset=".65" stop-color="#c6c0b7"/><stop offset="1" stop-color="#9b91a3"/></radialGradient>
+  </defs>
+  <rect width="360" height="520" fill="url(#sky)"/>
+  <path d="M0 212c75-54 117-39 180-81 61 42 107 27 180 81v195H0z" fill="#241b2d"/>
+  <circle cx="180" cy="120" r="67" fill="#b8a7ca" opacity=".08"/>
+  <circle cx="180" cy="120" r="44" fill="url(#luna)"/>
+  <path d="M198 83c-24 18-32 49-11 79-34-5-53-39-38-68 10-20 30-29 49-23z" fill="#25202b"/>
+  <g fill="#e5d4ab"><circle cx="72" cy="102" r="2"/><circle cx="286" cy="77" r="1.7"/><circle cx="300" cy="176" r="1.5"/><path d="m91 157 4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/></g>
+  <path d="M42 195h76v231H42z" fill="url(#pillar)" stroke="#aa8253" stroke-width="2"/>
+  <path d="M31 186h98v19H31zm6 241h86v18H37z" fill="#99764c" stroke="#d3b781"/>
+  <path d="M242 195h76v231h-76z" fill="url(#pillar)" stroke="#aa8253" stroke-width="2"/>
+  <path d="M231 186h98v19h-98zm6 241h86v18h-86z" fill="#201b2a" stroke="#aa8253" stroke-width="2"/>
+  <text x="80" y="325" text-anchor="middle" fill="#ddc48f" font-family="Georgia,serif" font-size="26">B</text>
+  <text x="280" y="325" text-anchor="middle" fill="#ddc48f" font-family="Georgia,serif" font-size="26">J</text>
+  <path d="M113 422c1-94 14-171 67-204 53 33 66 110 67 204l31 34H82z" fill="url(#veil)" stroke="#d0b882" stroke-width="2"/>
+  <path d="M138 280c10-32 24-49 42-62 18 13 32 30 42 62l-7 46c-16 28-55 28-70 0z" fill="#c9baa7" stroke="#efe0bf" stroke-width="2"/>
+  <path d="M148 313c9-24 18-37 32-45 14 8 23 21 32 45l-9 39-23 17-23-17z" fill="#191722"/>
+  <path d="m162 308 18-12 18 12m-34 19h32" fill="none" stroke="#be9e68" stroke-width="2"/>
+  <path d="M180 248v-37m-17 3h34" stroke="#dbc58f" stroke-width="3"/>
+  <path d="M166 212c-4-21 9-31 14-35 5 4 18 14 14 35z" fill="#d0b679" stroke="#f0dda9"/>
+  <path d="m99 387 38-14 16 65H92zm162 0-38-14-16 65h61z" fill="#211b2a" stroke="#977952"/>
+  <path d="M155 390h50l22 40h-94z" fill="#16141b" stroke="#c2a66e" stroke-width="2"/>
+  <path d="m174 386 6-11 7 11-7 21z" fill="#d8bd82"/>
+  <path d="M139 351c-22 22-18 52 3 72m79-72c22 22 18 52-3 72" fill="none" stroke="#e2d5b7" stroke-width="2" opacity=".55"/>
+  <rect x="13" y="13" width="334" height="494" rx="4" fill="none" stroke="#b79a68" stroke-width="2"/>
+  <rect x="20" y="20" width="320" height="480" rx="2" fill="none" stroke="#b79a68" stroke-opacity=".45"/>
+  <path d="M13 57h25M13 57v25m309-25h25m0 0v25M13 463h25m-25 0v-25m309 25h25v-25" fill="none" stroke="#e1c78f" stroke-width="2"/>
+  <rect x="73" y="460" width="214" height="28" rx="2" fill="#100e13" stroke="#b79a68"/>
+  <text x="180" y="479" text-anchor="middle" fill="#dec78e" font-family="Georgia,serif" font-size="12" letter-spacing="2">II · HIGH PRIESTESS</text>
+</svg>

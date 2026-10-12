@@ -4,6 +4,30 @@ session_start();
 $cardsFile = __DIR__ . '/data/cards.json';
 $cards = json_decode(file_get_contents($cardsFile), true) ?? [];
 $collectionFile = __DIR__ . '/data/.arcana/collections.json';
+$cardArtwork = [
+    'fool' => 'assets/cards/the-fool.svg',
+    'magician' => 'assets/cards/the-magician.svg',
+    'moon' => 'assets/cards/the-moon.svg',
+    'tower' => 'assets/cards/the-tower.svg',
+    'hermit' => 'assets/cards/the-hermit.svg',
+    'high-priestess' => 'assets/cards/the-high-priestess.svg',
+];
+
+function renderCardArtwork(array $card, array $artworkPaths): void {
+    $name = htmlspecialchars($card['name'], ENT_QUOTES, 'UTF-8');
+    $artwork = $artworkPaths[$card['id']] ?? null;
+    ?>
+    <div class="card-artwork">
+        <?php if ($artwork !== null): ?>
+            <img src="<?= htmlspecialchars($artwork, ENT_QUOTES, 'UTF-8') ?>" alt="<?= $name ?> — original tarot illustration">
+        <?php else: ?>
+            <div class="card-artwork-fallback" role="img" aria-label="<?= $name ?> tarot symbol">
+                <span><?= htmlspecialchars($card['symbol'], ENT_QUOTES, 'UTF-8') ?></span>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+}
 
 function collectionSaveId(): string {
     $cookieName = 'arcana_save_id';
@@ -171,9 +195,13 @@ function addExp(array &$player, int $amount): void {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
+    if ($action !== 'draw') {
+        unset($player['last_card_id']);
+    }
 
     if ($action === 'draw' && count($cards) > 0) {
         $card = $cards[array_rand($cards)];
+        $player['last_card_id'] = $card['id'];
         $collectionCounts[$card['id']] = addCardToCollection($collectionFile, $collectionOwner, $card['id']);
         $player['message'] = 'A card has answered your call: ' . $card['name']
             . ($collectionCounts[$card['id']] > 1
@@ -223,6 +251,13 @@ foreach ($cards as $card) {
 
     $ownedCards[] = $card;
 }
+$lastDrawnCard = null;
+foreach ($cards as $card) {
+    if ($card['id'] === ($player['last_card_id'] ?? null)) {
+        $lastDrawnCard = $card;
+        break;
+    }
+}
 $collectionTotal = array_sum($collectionCounts);
 ?>
 <!DOCTYPE html>
@@ -271,6 +306,22 @@ $collectionTotal = array_sum($collectionCounts);
             <div><p class="eyebrow">SYSTEM MESSAGE</p><p><?= htmlspecialchars($player['message']) ?></p></div>
         </section>
 
+        <?php if ($lastDrawnCard !== null): ?>
+            <section class="panel reveal-panel" aria-live="polite">
+                <p class="eyebrow">NEW CARD REVEALED</p>
+                <article class="revealed-card">
+                    <?php renderCardArtwork($lastDrawnCard, $cardArtwork); ?>
+                    <div class="revealed-card-details">
+                        <p class="card-number"><?= htmlspecialchars($lastDrawnCard['number']) ?></p>
+                        <h2><?= htmlspecialchars($lastDrawnCard['name']) ?></h2>
+                        <p class="rarity"><?= htmlspecialchars($lastDrawnCard['rarity']) ?></p>
+                        <p class="card-description"><?= htmlspecialchars($lastDrawnCard['description']) ?></p>
+                        <p class="copy-count">Copies owned: <?= $collectionCounts[$lastDrawnCard['id']] ?></p>
+                    </div>
+                </article>
+            </section>
+        <?php endif; ?>
+
         <section class="panel">
             <p class="eyebrow">CHOOSE YOUR ACTION</p>
             <div class="action-grid">
@@ -289,7 +340,7 @@ $collectionTotal = array_sum($collectionCounts);
                 <div class="card-grid">
                     <?php foreach ($ownedCards as $card): ?>
                         <article class="tarot-card">
-                            <div class="card-symbol"><?= htmlspecialchars($card['symbol']) ?></div>
+                            <?php renderCardArtwork($card, $cardArtwork); ?>
                             <p class="card-number"><?= htmlspecialchars($card['number']) ?></p>
                             <h3><?= htmlspecialchars($card['name']) ?></h3>
                             <p class="rarity"><?= htmlspecialchars($card['rarity']) ?></p>

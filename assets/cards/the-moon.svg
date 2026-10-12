@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 520" role="img" aria-labelledby="title desc">
+  <title id="title">The Moon</title>
+  <desc id="desc">A vast pale moon watches over twin ruined towers, a winding river, and two shadowed guardians.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#0b1019"/><stop offset=".55" stop-color="#272238"/><stop offset="1" stop-color="#17151e"/></linearGradient>
+    <radialGradient id="moonlight"><stop stop-color="#f6efdc"/><stop offset=".68" stop-color="#d1c7b2"/><stop offset="1" stop-color="#aaa0a2"/></radialGradient>
+    <linearGradient id="water" x2="0" y2="1"><stop stop-color="#657083"/><stop offset="1" stop-color="#1c1c2a"/></linearGradient>
+  </defs>
+  <rect width="360" height="520" fill="url(#sky)"/>
+  <circle cx="180" cy="174" r="102" fill="#d8cba8" opacity=".08"/>
+  <circle cx="180" cy="174" r="73" fill="url(#moonlight)"/>
+  <path d="M200 103c-34 27-44 77-12 125-45-5-70-49-51-91 13-29 39-41 63-34z" fill="#24212d" opacity=".77"/>
+  <g fill="#d9d0bd"><circle cx="60" cy="91" r="2"/><circle cx="291" cy="86" r="2"/><circle cx="304" cy="193" r="1.5"/><circle cx="97" cy="232" r="1.5"/><path d="m115 91 4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/></g>
+  <path d="M0 303 69 268l44 32 66-49 70 48 45-34 66 39v216H0z" fill="#25212d"/>
+  <path d="M0 355h39v-84h38v84h18v-58h40v58h174v-63h36v63h15v165H0z" fill="#12131b" stroke="#79614f" stroke-width="2"/>
+  <path d="M40 271v-35l18-26 18 26v35m210 21v-42l18-27 18 27v42" fill="#15151f" stroke="#a4865c" stroke-width="2"/>
+  <path d="M59 252c-17-22-16-48-1-66 15 18 16 44 1 66zm228 7c-17-22-16-48-1-66 15 18 16 44 1 66z" fill="#d5bb83"/>
+  <path d="M173 283c-19 44-29 83-5 116s38 47 17 94h66c-38-50-13-74-7-104 7-33-25-71-48-106z" fill="url(#water)" stroke="#a9a3a1" stroke-width="2"/>
+  <path d="M185 316c-8 31-6 47 9 69m-15 22 19 18m-18 25 8 20" fill="none" stroke="#d2c5a0" stroke-width="3" opacity=".66"/>
+  <path d="M67 409c1-34 12-51 29-51s28 17 29 51l21 37H46z" fill="#121218" stroke="#8e7960" stroke-width="2"/>
+  <path d="M234 408c2-34 13-50 30-50s28 16 30 50l20 38h-98z" fill="#121218" stroke="#8e7960" stroke-width="2"/>
+  <path d="M82 365c0-13 6-21 14-21s14 8 14 21" fill="#c7bda9"/><path d="M249 364c0-13 6-21 14-21s14 8 14 21" fill="#c7bda9"/>
+  <path d="M36 455c46-18 83-14 111 6m66 1c42-24 77-20 111-5" fill="none" stroke="#826a55" stroke-width="2"/>
+  <rect x="13" y="13" width="334" height="494" rx="4" fill="none" stroke="#b79a68" stroke-width="2"/>
+  <rect x="20" y="20" width="320" height="480" rx="2" fill="none" stroke="#b79a68" stroke-opacity=".45"/>
+  <path d="M13 57h25M13 57v25m309-25h25m0 0v25M13 463h25m-25 0v-25m309 25h25v-25" fill="none" stroke="#e1c78f" stroke-width="2"/>
+  <rect x="111" y="460" width="138" height="28" rx="2" fill="#100e13" stroke="#b79a68"/>
+  <text x="180" y="479" text-anchor="middle" fill="#dec78e" font-family="Georgia,serif" font-size="13" letter-spacing="3">XVIII · THE MOON</text>
+</svg>
