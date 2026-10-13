@@ -229,9 +229,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     random_int(0, count($availableCards) - 1)
                 ];
 
+                
                 $_SESSION['tla_last_card'] = $drawnCard;
+                $_SESSION['tla_last_tarot'] = $drawnCard;
                 $player['cards'][] = $drawnCard;
-
+            
                 $messages[] = 'Kartu Tarot berhasil ditemukan: ' .
                     $drawnCard['name'] . ' (' .
                     $drawnCard['rarity'] . ').';
