@@ -189,22 +189,41 @@ function addCardToCollection(string $file, string $owner, string $cardId): int {
 $collectionOwner = collectionSaveId();
 $collectionCounts = loadCollectionCounts($collectionFile, $collectionOwner);
 
+
 if (!isset($_SESSION['player'])) {
     $_SESSION['player'] = [
-        'name' => 'The Unregistered',
+        'created' => false,
+        'name' => '',
+        'class' => '',
         'level' => 1,
         'exp' => 0,
         'hp' => 100,
         'max_hp' => 100,
+        'mana' => 80,
+        'max_mana' => 80,
+        'attack' => 15,
+        'defense' => 10,
         'stage' => 1,
         'cards' => [],
-        'message' => 'The system has noticed your arrival.',
+        'message' => 'Create your character to begin.',
         'message_key' => 'message.arrival',
         'message_params' => [],
     ];
 }
 
 $player = &$_SESSION['player'];
+
+// Compatibility with existing player sessions.
+if (!isset($player['created'])) {
+    $player['created'] = ($player['name'] ?? '') !== 'The Unregistered';
+}
+
+$player['mana'] ??= 80;
+$player['max_mana'] ??= 80;
+$player['attack'] ??= 15;
+$player['defense'] ??= 10;
+$player['class'] ??= '';
+
 if (!isset($player['message_key'])) {
     $player['message_key'] = 'message.arrival';
     $player['message_params'] = [];
@@ -225,6 +244,62 @@ function addExp(array &$player, int $amount): void {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
+    
+    if ($action === 'create_character') {
+        $name = trim($_POST['character_name'] ?? '');
+        $class = $_POST['character_class'] ?? '';
+
+        $classes = [
+            'Arcanist' => [
+                'hp' => 80,
+                'mana' => 140,
+                'attack' => 15,
+                'defense' => 8,
+            ],
+            'Shadow Hunter' => [
+                'hp' => 100,
+                'mana' => 80,
+                'attack' => 22,
+                'defense' => 12,
+            ],
+            'Knight of Ruin' => [
+                'hp' => 130,
+                'mana' => 50,
+                'attack' => 16,
+                'defense' => 20,
+            ],
+        ];
+
+        if ($name === '' || strlen($name) > 40
+            || !isset($classes[$class])) {
+            header('Location: index.php');
+            exit;
+        }
+
+        $stats = $classes[$class];
+
+        $player['created'] = true;
+        $player['name'] = $name;
+        $player['class'] = $class;
+        $player['level'] = 1;
+        $player['exp'] = 0;
+        $player['hp'] = $stats['hp'];
+        $player['max_hp'] = $stats['hp'];
+        $player['mana'] = $stats['mana'];
+        $player['max_mana'] = $stats['mana'];
+        $player['attack'] = $stats['attack'];
+        $player['defense'] = $stats['defense'];
+        $player['stage'] = 1;
+        $player['message'] = 'Your journey begins.';
+        $player['message_key'] = 'message.arrival';
+        $player['message_params'] = [];
+
+        unset($player['last_card_id']);
+
+        header('Location: index.php');
+        exit;
+    }
+    
     if ($action !== 'draw') {
         unset($player['last_card_id']);
     }
@@ -280,6 +355,141 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     header('Location: index.php');
+    exit;
+}
+
+if (empty($player['created'])) {
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#100e10">
+    <title>Create Character — The Last Arcana</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .creation-panel {
+            max-width: 520px;
+            margin: 36px auto;
+            padding: 26px;
+            border: 1px solid #76516e;
+            border-radius: 18px;
+            background: linear-gradient(145deg, #241a2b, #100e10 75%);
+            box-shadow: 0 0 35px #8d45a522;
+        }
+        .creation-panel h2 {
+            color: #e3c4ff;
+            letter-spacing: 2px;
+        }
+        .creation-panel label {
+            display: block;
+            margin: 18px 0 8px;
+            color: #d9c5e8;
+        }
+        .creation-panel input,
+        .creation-panel select {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #67496f;
+            border-radius: 9px;
+            color: #f0e6f5;
+            background: #151019;
+            font: inherit;
+        }
+        .class-option {
+            margin-top: 12px;
+            padding: 13px;
+            border: 1px solid #49323b;
+            border-radius: 10px;
+            color: #c9bacf;
+            font-size: .9rem;
+        }
+        .class-option strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #e2c3ff;
+        }
+        .creation-button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 14px;
+            border: 1px solid #c7a77a;
+            border-radius: 10px;
+            color: #fff2dc;
+            background: linear-gradient(100deg, #572d60, #8c354d);
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="sigil">✦</div>
+        <div>
+            <p class="eyebrow">OCCULT SURVIVAL RPG</p>
+            <h1>THE LAST ARCANA</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="creation-panel">
+            <p class="eyebrow">SYSTEM INITIALIZATION // 0001</p>
+            <h2>CREATE YOUR CHARACTER</h2>
+            <p class="muted">
+                The Arcana has noticed your existence.
+                Choose who you will become.
+            </p>
+
+            <form method="post">
+                <input type="hidden" name="action"
+                       value="create_character">
+
+                <label for="character_name">Character Name</label>
+                <input id="character_name"
+                       name="character_name"
+                       type="text"
+                       maxlength="40"
+                       required
+                       placeholder="Enter your name">
+
+                <label for="character_class">Choose Your Class</label>
+                <select id="character_class"
+                        name="character_class" required>
+                    <option value="Arcanist">Arcanist</option>
+                    <option value="Shadow Hunter">Shadow Hunter</option>
+                    <option value="Knight of Ruin">Knight of Ruin</option>
+                </select>
+
+                <div class="class-option">
+                    <strong>✧ Arcanist</strong>
+                    High mana and mysterious arcane power.
+                    <br>HP 80 · Mana 140 · ATK 15 · DEF 8
+                </div>
+
+                <div class="class-option">
+                    <strong>☾ Shadow Hunter</strong>
+                    A swift hunter specializing in attacks.
+                    <br>HP 100 · Mana 80 · ATK 22 · DEF 12
+                </div>
+
+                <div class="class-option">
+                    <strong>⚔ Knight of Ruin</strong>
+                    A durable warrior who can endure danger.
+                    <br>HP 130 · Mana 50 · ATK 16 · DEF 20
+                </div>
+
+                <button class="creation-button" type="submit">
+                    AWAKEN MY CHARACTER
+                </button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
+<?php
     exit;
 }
 
