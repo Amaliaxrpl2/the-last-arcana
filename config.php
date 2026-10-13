@@ -1,4 +1,3 @@
-
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -13,13 +12,15 @@ if (!isset($_SESSION['player'])) {
         'class' => '',
         'level' => 1,
         'exp' => 0,
+        'exp_next' => 100,
         'hp' => 100,
         'max_hp' => 100,
-        'mana' => 100,
-        'max_mana' => 100,
+        'mana' => 50,
+        'max_mana' => 50,
         'attack' => 10,
         'defense' => 5,
         'stage' => 1,
+        'gold' => 0,
         'cards' => []
     ];
 }
