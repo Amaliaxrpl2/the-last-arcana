@@ -1,8 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+session_start();
 date_default_timezone_set('Asia/Jakarta');
 
 if (!isset($_SESSION['player'])) {
@@ -26,11 +23,7 @@ if (!isset($_SESSION['player'])) {
 }
 
 function arcana_escape($value) {
-    return htmlspecialchars(
-        (string) $value,
-        ENT_QUOTES,
-        'UTF-8'
-    );
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
 function arcana_redirect($page) {
