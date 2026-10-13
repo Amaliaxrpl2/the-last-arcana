@@ -679,12 +679,18 @@ $cards = array_reverse($player['cards']);
             <?php endif; ?>
         </section>
 
-        <a class="game-button" href="index.php">← KEMBALI KE AWAL</a>
+        
+<a href="tarot.php" class="game-button">
+    ✧ TAROT ARCHIVE
+</a>
 
-        <footer class="game-footer">
-            THE LAST ARCANA · Every card has a secret.
-        </footer>
+<a class="game-button" href="index.php">
+    ← KEMBALI KE AWAL
+</a>
 
-    </main>
+<footer class="game-footer">
+    THE LAST ARCANA · Every card has a secret.
+</footer>
+</main>
 </body>
 </html>
