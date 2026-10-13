@@ -1,23 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['player'])) {
-    $_SESSION['player'] = [
-        'created' => false,
-        'name' => '',
-        'class' => '',
-        'level' => 1,
-        'exp' => 0,
-        'hp' => 100,
-        'max_hp' => 100,
-        'mana' => 100,
-        'max_mana' => 100,
-        'attack' => 10,
-        'defense' => 5,
-        'stage' => 1,
-        'cards' => []
-    ];
-}
+require_once __DIR__ . '/config.php';
 
 $classes = [
     'Arcanist' => [
