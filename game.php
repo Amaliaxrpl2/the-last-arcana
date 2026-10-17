@@ -4,6 +4,9 @@ require_once __DIR__ . '/config.php';
 if (empty($_SESSION['player']['created'])) {
     arcana_redirect('character.php');
 }
+if (empty($_SESSION['story_completed'])) {
+    arcana_redirect('story.php');
+}
 
 $player = &$_SESSION['player'];
 $saveFile = __DIR__ . '/data/players.json';
