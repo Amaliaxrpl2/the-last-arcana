@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         // Karakter selesai dibuat, lanjut ke prolog cerita.
-        $_SESSION['story_page'] = 1;
+        $_SESSION['story_page'] = 0;
         $_SESSION['story_completed'] = false;
 
         header('Location: story.php');
