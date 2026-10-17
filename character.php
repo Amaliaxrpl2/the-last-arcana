@@ -54,7 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'cards' => []
         ];
 
-        header('Location: game.php');
+        // Karakter selesai dibuat, lanjut ke prolog cerita.
+        $_SESSION['story_page'] = 1;
+        $_SESSION['story_completed'] = false;
+
+        header('Location: story.php');
         exit;
     }
 }
@@ -66,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Character | THE LAST ARCANA</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
         .creation {
             width: min(850px, 92%);
@@ -111,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .character-input {
             width: 100%;
+            box-sizing: border-box;
             padding: 15px;
             background: #090710;
             border: 1px solid #72548e;
@@ -145,6 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 100%;
             min-height: 225px;
             padding: 18px 12px;
+            box-sizing: border-box;
             background: #100b19;
             border: 1px solid #554064;
             text-align: center;
@@ -241,6 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
+
 <body>
 <div class="stars"></div>
 
@@ -249,14 +257,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <span class="logo-symbol">✦</span>
         THE LAST ARCANA
     </a>
+
     <span class="eyebrow">CHARACTER REGISTRATION</span>
 </header>
 
 <main class="creation">
     <div class="creation-header">
         <p class="eyebrow">THE FIRST STEP OF YOUR FATE</p>
-        <h1>CREATE YOUR<br><span>CHARACTER</span></h1>
-        <p>Tentukan identitasmu sebelum memasuki dunia Arcana.</p>
+
+        <h1>
+            CREATE YOUR<br>
+            <span>CHARACTER</span>
+        </h1>
+
+        <p>
+            Tentukan identitasmu sebelum memasuki dunia Arcana.
+        </p>
     </div>
 
     <form class="creation-panel" method="POST">
@@ -307,13 +323,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             ?>
                         </div>
 
-                        <h2><?= htmlspecialchars($className, ENT_QUOTES, 'UTF-8') ?></h2>
+                        <h2>
+                            <?= htmlspecialchars($className, ENT_QUOTES, 'UTF-8') ?>
+                        </h2>
 
-                        <p><?= htmlspecialchars($stats['description'], ENT_QUOTES, 'UTF-8') ?></p>
+                        <p>
+                            <?= htmlspecialchars($stats['description'], ENT_QUOTES, 'UTF-8') ?>
+                        </p>
 
                         <div class="class-stats">
                             HP <?= $stats['hp'] ?> ·
                             MANA <?= $stats['mana'] ?><br>
+
                             ATK <?= $stats['attack'] ?> ·
                             DEF <?= $stats['defense'] ?>
                         </div>
@@ -336,5 +357,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ✦ THE LAST ARCANA
     <p>EVERY BEGINNING HAS A PRICE</p>
 </footer>
+
 </body>
 </html>
